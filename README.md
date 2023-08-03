@@ -10,5 +10,24 @@ For counting the votes, the dapp then needs to sync send or submit all the signe
 ## How to use the dapp
 [coming soon]
 
+run the cron job to send tx with all the posts every 24 hours:
+```
+select
+  cron.schedule(
+    'invoke',
+    '0 22 * * *', 
+    $$
+    select
+      net.http_post(
+         url:='https://ebjijwajksizqkcghwdv.supabase.co/functions/v1/count-votes',
+          headers:='{"Content-Type": "application/json", "Authorization": "Bearer SERVICE_KEY"}'::jsonb,
+          body:=concat('{"pollid": "3hY7MnnYtVSTVB7UxJePFKGNYVKPK3H5x5E2STshZiXV"}')::jsonb
+      ) as request_id;
+    $$
+  );
+```
+
 ## How to build the dapp locally
 [coming soon]# frontend
+- yarn
+- yarn dev
